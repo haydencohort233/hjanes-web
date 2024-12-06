@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { DndContext } from '@dnd-kit/core';
-import styles from './Desktop.module.css';
+import styles from './Desktop.module.css'; // Import styles correctly as 'styles'
 import Taskbar from './Taskbar';
 import DesktopIcon from './DesktopIcon';
 import DesktopGrid from './DesktopGrid';
@@ -9,7 +9,7 @@ const Desktop = () => {
   const rows = 10;
   const columns = 10;
 
-  // State to manage the grid positions of icons with local storage persistence
+  // Manage the grid positions of icons with local storage
   const [iconPositions, setIconPositions] = useState(() => {
     const savedPositions = localStorage.getItem('iconPositions');
     return savedPositions
@@ -20,7 +20,7 @@ const Desktop = () => {
         };
   });
 
-  // Effect to update local storage whenever iconPositions changes
+  // Update local storage whenever iconPositions changes
   useEffect(() => {
     localStorage.setItem('iconPositions', JSON.stringify(iconPositions));
   }, [iconPositions]);
@@ -40,7 +40,7 @@ const Desktop = () => {
     }
   };
 
-  // Generate the grid cells to cover the entire desktop area
+  // Generate the grid to cover the entire desktop area
   const gridCells = [];
   for (let r = 0; r < rows; r++) {
     for (let c = 0; c < columns; c++) {
@@ -57,25 +57,27 @@ const Desktop = () => {
           {gridCells}
         </div>
 
-        {/* Render each desktop icon with updated positions */}
+        {/* Desktop icon with updated positions */}
         {Object.entries(iconPositions).map(([iconId, position]) => (
-          <DesktopIcon
-            key={iconId}
-            id={iconId}
-            position={position} // Pass position as a prop
-          >
-            {iconId === 'icon-1' ? (
-              <>
-                <img src="/path/to/icon1.png" alt="Icon 1" />
-                <p>My Computer</p>
-              </>
-            ) : (
-              <>
-                <img src="/path/to/icon2.png" alt="Icon 2" />
-                <p>Recycle Bin</p>
-              </>
-            )}
-          </DesktopIcon>
+            <DesktopIcon
+                key={iconId}
+                id={iconId}
+                position={position} // Pass position as a prop
+            >
+                <div className={styles.iconWrapper}>
+                  {iconId === 'icon-1' ? (
+                    <>
+                      <img className={styles.desktopIcon} src="/assets/desktop/discord.png" alt="Icon 1" />
+                      <p className={styles.iconLabel}>My Computer</p>
+                    </>
+                  ) : (
+                    <>
+                      <img className={styles.desktopIcon} src="assets/avatar/avatar.png" alt="Icon 2" />
+                      <p className={styles.iconLabel}>Recycle Bin</p>
+                    </>
+                  )}
+                </div>
+            </DesktopIcon>
         ))}
 
         <Taskbar />

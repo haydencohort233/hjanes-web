@@ -27,3 +27,12 @@
     border: 1px dashed #0000FF; /* Blue dashed border when selected */
     background-color: rgba(173, 216, 230, 0.5); /* Light blue transparent background to indicate selection */
 }
+
+/* DesktopIcon.module.css */
+.iconImage {
+    width: 64px;  /* Set width of the icon */
+    height: 64px; /* Set height of the icon */
+    object-fit: contain; /* Ensures the image keeps its aspect ratio */
+    margin-bottom: 8px;  /* Adds a bit of spacing between the image and text */
+  }
+  
