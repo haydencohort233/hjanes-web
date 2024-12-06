@@ -1,0 +1,29 @@
+/* Desktop Styles */
+
+.desktop {
+    width: 100%;
+    height: 100%;
+    background: #00807F; /* Light blue background to resemble a classic desktop */
+    position: fixed;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    padding-bottom: 40px; /* Respect the Taskbar height at the bottom */
+    box-sizing: border-box;
+  }
+  
+  .gridContainer {
+    display: grid;
+    grid-template-columns: repeat(10, 1fr); /* Adjust to match number of columns */
+    grid-template-rows: repeat(10, 1fr); /* Adjust to match number of rows */
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    pointer-events: none; /* Make sure grid does not interfere with dragging */
+  }
+  
+  .gridCell {
+    width: 100%;
+    height: 100%;
+    pointer-events: auto; /* Enable dropping for these cells */
+  }
