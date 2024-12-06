@@ -11,8 +11,7 @@ const DesktopGrid = ({ id }) => {
   // Inline style for visibility during development (can be removed later)
   const style = {
     width: '100%',
-    height: '100%',
-    backgroundColor: isOver ? 'rgba(0, 0, 255, 0.1)' : 'transparent', // Highlight when something is dragged over
+    height: '100%'
   };
 
   return <div ref={setNodeRef} style={style} className={styles.gridCell}></div>;
