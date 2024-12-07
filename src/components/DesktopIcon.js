@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDraggable } from '@dnd-kit/core';
 
-const DesktopIcon = ({ id, children, position, isActive, onActivate }) => {
+const DesktopIcon = ({ id, children, position, isActive, onActivate, onOpen }) => {
   const { attributes, listeners, setNodeRef, transform } = useDraggable({
     id: id,
   });
@@ -23,12 +23,12 @@ const DesktopIcon = ({ id, children, position, isActive, onActivate }) => {
 
   useEffect(() => {
     if (clickCount === 2) {
-      console.log(`Double-clicked on icon: ${id}`);
+      onOpen(); // Call the onOpen action
       setClickCount(0); // Reset click count
     }
     const timer = setTimeout(() => setClickCount(0), 300); // Reset after 300ms
     return () => clearTimeout(timer);
-  }, [clickCount, id]);
+  }, [clickCount, onOpen]);
 
   const handleClick = (e) => {
     e.stopPropagation(); // Prevent propagation to desktop

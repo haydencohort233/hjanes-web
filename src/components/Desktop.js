@@ -31,7 +31,6 @@ const Desktop = () => {
       const droppableId = over.id;
       const [, row, col] = droppableId.split('-');
 
-      // Prevent icons from sharing the same cell
       const isOccupied = Object.values(iconPositions).some(
         (pos) => pos.row === parseInt(row, 10) && pos.col === parseInt(col, 10)
       );
@@ -60,6 +59,8 @@ const Desktop = () => {
     <DndContext onDragEnd={handleDragEnd}>
       <div className={styles.desktop} onClick={handleClickOutside}>
         <div className={styles.gridContainer}>{gridCells}</div>
+
+        {/* Desktop icons */}
         {Object.entries(iconPositions).map(([iconId, position]) => (
           <DesktopIcon
             key={iconId}
@@ -67,6 +68,15 @@ const Desktop = () => {
             position={position}
             isActive={activeIcon === iconId}
             onActivate={() => setActiveIcon(iconId)}
+            onOpen={() => {
+              if (iconId === 'icon-1') {
+                setTimeout(() => {
+                  window.open('https://www.google.com', '_blank'); // Delay to prevent React interference
+                }, 0);
+              } else {
+                console.log(`Double-clicked on ${iconId}`);
+              }
+            }}
           >
             <div className={styles.iconWrapper}>
               {iconId === 'icon-1' ? (
@@ -76,7 +86,7 @@ const Desktop = () => {
                     src="/assets/desktop/discord.png"
                     alt="Icon 1"
                   />
-                  <p className={styles.iconLabel}>My Computer</p>
+                  <p className={styles.iconLabel}>Google</p>
                 </>
               ) : (
                 <>
