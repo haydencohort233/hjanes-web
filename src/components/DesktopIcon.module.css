@@ -25,7 +25,7 @@
 /* Selected Icon Styles */
 .selected {
     border: 1px dashed #0000FF; /* Blue dashed border when selected */
-    background-color: rgba(173, 216, 230, 0.5); /* Light blue transparent background to indicate selection */
+    background-color: rgba(173, 216, 230, 0.9); /* Light blue transparent background to indicate selection */
 }
 
 /* DesktopIcon.module.css */
