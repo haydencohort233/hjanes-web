@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useCallback, useState, useEffect } from 'react';
 import styles from './Window.module.css';
 
 const Window = ({ title = 'Window', onClose, children }) => {
@@ -12,15 +12,29 @@ const Window = ({ title = 'Window', onClose, children }) => {
     setDragStart({ x: e.clientX - position.x, y: e.clientY - position.y });
   };
 
-  // Handle drag movement
-  const handleMouseMove = (e) => {
+  const handleMouseMove = useCallback((e) => {
     if (isDragging) {
       setPosition({
         x: e.clientX - dragStart.x,
         y: e.clientY - dragStart.y,
       });
     }
-  };
+  }, [isDragging, dragStart]);
+  
+  useEffect(() => {
+    if (isDragging) {
+      window.addEventListener('mousemove', handleMouseMove);
+      window.addEventListener('mouseup', handleMouseUp);
+    } else {
+      window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('mouseup', handleMouseUp);
+    }
+  
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('mouseup', handleMouseUp);
+    };
+  }, [isDragging, handleMouseMove]); // All dependencies properly listed
 
   // Handle drag end
   const handleMouseUp = () => setIsDragging(false);
