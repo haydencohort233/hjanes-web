@@ -1,37 +1,66 @@
-/* Taskbar and Start Menu CSS refactor for portfolio website */
-
-/* Taskbar Styles */
+/* Taskbar layout */
 .taskbar {
     position: fixed;
     bottom: 0;
-    left: 0;
     width: 100%;
     height: 40px;
-    background: #c0c0c0;
-    z-index: 1000;
+    background-color: #c0c0c0;
+    border-top: 2px solid #808080;
     display: flex;
     align-items: center;
-}
-
-/* Start Button Styles */
-.start-button-container {
-    margin-left: 5px;
-}
-
-.startButton {
-    background: linear-gradient(to bottom, #e0e0e0, #c0c0c0);
-    border: 2px #808080;
-    height: 39px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 12px;
-    font-weight: bold;
-    color: black;
-    cursor: pointer;
-}
-
-.startButton img {
+    z-index: 50; /* Ensures the taskbar is always above most elements */
+  }
+  
+  .startButton {
+    width: 60px;
     height: 100%;
-    width: 100%;
-}
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    border-right: 2px solid #808080;
+    background-color: #c0c0c0;
+  }
+  
+  .startButton:hover {
+    background-color: #000080;
+  }
+  
+  .startButtonIcon {
+    width: 62px;
+    height: 40px;
+  }
+  
+  /* Start Menu */
+  .startMenu {
+    position: absolute;
+    bottom: 40px; /* Appears directly above the taskbar */
+    left: 0;
+    width: 200px;
+    background-color: #c0c0c0;
+    border: 2px solid #000;
+    z-index: 100; /* Ensures the start menu is on top of everything */
+  }
+  
+  .startMenuList {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .startMenuList li {
+    padding: 10px 20px;
+    border-bottom: 1px solid #808080;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  .startMenuList li:hover {
+    background-color: #000080;
+    color: #fff;
+  }
+  
+  .startMenuList li:last-child {
+    border-bottom: none;
+  }
+  
