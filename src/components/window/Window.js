@@ -1,16 +1,9 @@
 import React, { useCallback, useState, useEffect } from 'react';
-import styles from './Window.module.css';
 
 const Window = ({ title = 'Window', onClose, children }) => {
   const [position, setPosition] = useState({ x: 100, y: 100 });
   const [isDragging, setIsDragging] = useState(false);
   const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
-
-  // Handle drag start
-  const handleMouseDown = (e) => {
-    setIsDragging(true);
-    setDragStart({ x: e.clientX - position.x, y: e.clientY - position.y });
-  };
 
   const handleMouseMove = useCallback((e) => {
     if (isDragging) {
@@ -19,9 +12,13 @@ const Window = ({ title = 'Window', onClose, children }) => {
         y: e.clientY - dragStart.y,
       });
     }
-  }, [isDragging, dragStart]);
+  }, [isDragging, dragStart]); // Memoized to avoid re-creation
 
-  // Handle drag end
+  const handleMouseDown = (e) => {
+    setIsDragging(true);
+    setDragStart({ x: e.clientX - position.x, y: e.clientY - position.y });
+  };
+
   const handleMouseUp = () => setIsDragging(false);
 
   useEffect(() => {
@@ -37,23 +34,15 @@ const Window = ({ title = 'Window', onClose, children }) => {
       window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('mouseup', handleMouseUp);
     };
-  }, [isDragging]);
+  }, [isDragging, handleMouseMove]); // Properly listed dependencies
 
   return (
-    <div 
-      className={styles.window} 
-      style={{ left: `${position.x}px`, top: `${position.y}px` }}
-    >
-      {/* Header with title and close button */}
-      <div className={styles.titleBar} onMouseDown={handleMouseDown}>
-        <span className={styles.title}>{title}</span>
-        <button className={styles.closeButton} onClick={onClose}>
-          ✕
-        </button>
+    <div className="window" onMouseDown={handleMouseDown}>
+      <div className="title-bar">
+        <span>{title}</span>
+        <button onClick={onClose}>X</button>
       </div>
-
-      {/* Window content */}
-      <div className={styles.content}>
+      <div className="content">
         {children}
       </div>
     </div>
