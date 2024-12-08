@@ -20,21 +20,6 @@ const Window = ({ title = 'Window', onClose, children }) => {
       });
     }
   }, [isDragging, dragStart]);
-  
-  useEffect(() => {
-    if (isDragging) {
-      window.addEventListener('mousemove', handleMouseMove);
-      window.addEventListener('mouseup', handleMouseUp);
-    } else {
-      window.removeEventListener('mousemove', handleMouseMove);
-      window.removeEventListener('mouseup', handleMouseUp);
-    }
-  
-    return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
-      window.removeEventListener('mouseup', handleMouseUp);
-    };
-  }, [isDragging, handleMouseMove]); // All dependencies properly listed
 
   // Handle drag end
   const handleMouseUp = () => setIsDragging(false);
