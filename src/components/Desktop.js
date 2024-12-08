@@ -17,9 +17,9 @@ const Desktop = () => {
     return savedPositions
       ? JSON.parse(savedPositions)
       : {
-          'icon-1': { row: 0, col: 0 }, // About Me
-          'icon-2': { row: 0, col: 1 }, // Recycle Bin
-          'icon-3': { row: 0, col: 2 }, // My Skills
+          'icon-1': { row: 1, col: 0 }, // About Me
+          'icon-2': { row: 1, col: 1 }, // Recycle Bin
+          'icon-3': { row: 1, col: 2 }, // My Skills
         };
   });
 
@@ -112,7 +112,7 @@ const Desktop = () => {
                 <>
                   <img
                     className={styles.desktopIcon}
-                    src="/assets/desktop/about-me.png"
+                    src="/assets/desktop/about.png"
                     alt="About Me"
                   />
                   <p className={styles.iconLabel}>About Me</p>
