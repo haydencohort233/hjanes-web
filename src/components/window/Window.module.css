@@ -1,0 +1,63 @@
+/* Window container */
+.window {
+    position: absolute;
+    width: 400px;
+    height: 300px;
+    background-color: #c0c0c0;
+    border: 2px solid #000;
+    box-shadow: 4px 4px 0px 0px #000;
+    display: flex;
+    flex-direction: column;
+    z-index: 10;
+    overflow: hidden;
+  }
+  
+  /* Title bar (blue header) */
+  .titleBar {
+    height: 30px;
+    background-color: #0000aa; /* Classic Windows 98 blue */
+    color: #fff;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: move;
+    padding: 0 10px;
+    user-select: none;
+  }
+  
+  /* Title text */
+  .title {
+    font-size: 14px;
+    flex: 1;
+    text-align: left;
+  }
+  
+  /* Close button */
+  .closeButton {
+    background-color: #c0c0c0;
+    border: 1px solid #000;
+    color: #000;
+    width: 20px;
+    height: 20px;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+  }
+  
+  .closeButton:hover {
+    background-color: #ff0000; /* Red hover effect */
+    color: #fff;
+  }
+  
+  /* Window content */
+  .content {
+    flex: 1;
+    padding: 20px;
+    overflow: auto;
+  }

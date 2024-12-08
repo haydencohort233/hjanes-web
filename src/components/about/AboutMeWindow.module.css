@@ -1,0 +1,43 @@
+.aboutMeWindow {
+    font-family: 'Arial', sans-serif;
+    background-color: #c0c0c0;
+  }
+  
+  .aboutMeWindow h1 {
+    font-size: 20px;
+    margin-bottom: 4px;
+    color: #0000aa;
+  }
+  
+  .aboutMeWindow h2 {
+    font-size: 18px;
+    margin-bottom: 4px;
+  }
+  
+  .aboutMeWindow h3 {
+    font-size: 16px;
+    margin-bottom: 4px;
+  }
+  
+  .aboutMeWindow p {
+    font-size: 14px;
+    line-height: 1.4;
+    margin: 0 0 8px 0; /* space between paragraphs */
+  }
+  
+  .aboutMeWindow a {
+    font-size: 14px;
+    color: #0000aa;
+    text-decoration: none;
+  }
+  
+  .aboutMeWindow a:hover {
+    text-decoration: underline;
+  }
+  
+  .githubLink {
+    font-weight: bold;
+    display: block;
+    margin-top: 10px;
+  }
+  

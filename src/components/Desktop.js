@@ -4,6 +4,9 @@ import styles from './Desktop.module.css';
 import Taskbar from './Taskbar';
 import DesktopIcon from './DesktopIcon';
 import DesktopGrid from './DesktopGrid';
+import Window from './window/Window';
+import SkillsWindow from './skills/SkillsWindow';
+import AboutMeWindow from './about/AboutMeWindow'; // Import the About Me window
 
 const Desktop = () => {
   const rows = 10;
@@ -14,12 +17,14 @@ const Desktop = () => {
     return savedPositions
       ? JSON.parse(savedPositions)
       : {
-          'icon-1': { row: 0, col: 0 },
-          'icon-2': { row: 0, col: 1 },
+          'icon-1': { row: 0, col: 0 }, // About Me
+          'icon-2': { row: 0, col: 1 }, // Recycle Bin
+          'icon-3': { row: 0, col: 2 }, // My Skills
         };
   });
 
   const [activeIcon, setActiveIcon] = useState(null);
+  const [openWindows, setOpenWindows] = useState([]); // Store multiple open windows
 
   useEffect(() => {
     localStorage.setItem('iconPositions', JSON.stringify(iconPositions));
@@ -46,6 +51,17 @@ const Desktop = () => {
 
   const handleClickOutside = () => setActiveIcon(null);
 
+  const openWindow = (id, title, content) => {
+    setOpenWindows((prevWindows) => [
+      ...prevWindows,
+      { id, title, content },
+    ]);
+  };
+
+  const closeWindow = (id) => {
+    setOpenWindows((prevWindows) => prevWindows.filter((win) => win.id !== id));
+  };
+
   const gridCells = [];
   for (let r = 0; r < rows; r++) {
     for (let c = 0; c < columns; c++) {
@@ -60,7 +76,6 @@ const Desktop = () => {
       <div className={styles.desktop} onClick={handleClickOutside}>
         <div className={styles.gridContainer}>{gridCells}</div>
 
-        {/* Desktop icons */}
         {Object.entries(iconPositions).map(([iconId, position]) => (
           <DesktopIcon
             key={iconId}
@@ -70,9 +85,23 @@ const Desktop = () => {
             onActivate={() => setActiveIcon(iconId)}
             onOpen={() => {
               if (iconId === 'icon-1') {
-                setTimeout(() => {
-                  window.open('https://www.google.com', '_blank'); // Delay to prevent React interference
-                }, 0);
+                openWindow(
+                  'window-about-me',
+                  'About Me',
+                  <AboutMeWindow /> // The content for the About Me window
+                );
+              } else if (iconId === 'icon-2') {
+                openWindow(
+                  'window-2',
+                  'Recycle Bin',
+                  <p>This is the Recycle Bin. No items to display.</p>
+                );
+              } else if (iconId === 'icon-3') {
+                openWindow(
+                  'window-3',
+                  'My Skills',
+                  <SkillsWindow />
+                );
               } else {
                 console.log(`Double-clicked on ${iconId}`);
               }
@@ -83,25 +112,45 @@ const Desktop = () => {
                 <>
                   <img
                     className={styles.desktopIcon}
-                    src="/assets/desktop/discord.png"
-                    alt="Icon 1"
+                    src="/assets/desktop/about-me.png"
+                    alt="About Me"
                   />
-                  <p className={styles.iconLabel}>Google</p>
+                  <p className={styles.iconLabel}>About Me</p>
+                </>
+              ) : iconId === 'icon-2' ? (
+                <>
+                  <img
+                    className={styles.desktopIcon}
+                    src="assets/avatar/avatar.png"
+                    alt="Recycle Bin"
+                  />
+                  <p className={styles.iconLabel}>Recycle Bin</p>
                 </>
               ) : (
                 <>
                   <img
                     className={styles.desktopIcon}
-                    src="assets/avatar/avatar.png"
-                    alt="Icon 2"
+                    src="/assets/desktop/skills.png"
+                    alt="My Skills"
                   />
-                  <p className={styles.iconLabel}>Recycle Bin</p>
+                  <p className={styles.iconLabel}>My Skills</p>
                 </>
               )}
             </div>
           </DesktopIcon>
         ))}
+
         <Taskbar />
+
+        {openWindows.map((win) => (
+          <Window 
+            key={win.id} 
+            title={win.title} 
+            onClose={() => closeWindow(win.id)}
+          >
+            {win.content}
+          </Window>
+        ))}
       </div>
     </DndContext>
   );
