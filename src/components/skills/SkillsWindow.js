@@ -15,7 +15,8 @@ const SkillsWindow = () => {
   const [selectedSkill, setSelectedSkill] = useState(skills[0]);
 
   useEffect(() => {
-    setSelectedSkill(skills[0]); // Automatically select the first skill when window opens
+    setSelectedSkill(skills[0]); 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleSkillClick = (skill) => {
